@@ -14,6 +14,8 @@ curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" sh -s -
 
 Add `export KUBECONFIG=/etc/rancher/k3s/k3s.yaml` to your .bashrc
 
+(If you don't you will get a plugin failed error)
+
 Download [k9s](https://k9scli.io/) from https://github.com/derailed/k9s/releases
 
 ## Install Longhorn
@@ -39,10 +41,11 @@ longhorn-replica-manager      ClusterIP   None            <none>        <none>  
 
 And you'll connect to *longhorn-ui* (I use SSH port forwarding through Firefox so I can access cluster IPs)
 
-
 # Install ECK
 
 ## Install CRD and Operator
+
+Follow the instructions from the first part of the [quickstart](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html)
 
 
 
