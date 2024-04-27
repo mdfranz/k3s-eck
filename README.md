@@ -22,8 +22,23 @@ Following [K3S: Storage](https://docs.k3s.io/storage) set up a local storage pro
 
 ```
 kubectl apply 0-longhorn.yaml 
-kubectl create -f 1-pvc-30GB.yaml 
-kubectl create -f 2-pod.yaml 
+```
+If you have 2 node cluster you'll see something like this
+
+```
+ubuntu@optiplex-master:~$ kubectl get services -n longhorn-system -o wide
+NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE     SELECTOR
+longhorn-backend              ClusterIP   10.43.181.204   <none>        9500/TCP   8m48s   app=longhorn-manager
+longhorn-frontend             ClusterIP   10.43.88.173    <none>        80/TCP     8m48s   app=longhorn-ui
+longhorn-conversion-webhook   ClusterIP   10.43.17.46     <none>        9501/TCP   8m48s   app=longhorn-manager
+longhorn-admission-webhook    ClusterIP   10.43.198.40    <none>        9502/TCP   8m48s   app=longhorn-manager
+longhorn-recovery-backend     ClusterIP   10.43.135.215   <none>        9503/TCP   8m48s   app=longhorn-manager
+longhorn-engine-manager       ClusterIP   None            <none>        <none>     8m48s   longhorn.io/component=instance-manager,longhorn.io/instance-manager-type=engine
+longhorn-replica-manager      ClusterIP   None            <none>        <none>     8m48s   longhorn.io/component=instance-manager,longhorn.io/instance-manager-type=replica
+```
+
+And you'll connect to *longhorn-ui* (I use SSH port forwarding through Firefox so I can access cluster IPs)
+
 
 # Install ECK
 
