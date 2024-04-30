@@ -47,5 +47,11 @@ And you'll connect to *longhorn-ui* (I use SSH port forwarding through Firefox s
 
 Follow the instructions from the first part of the [quickstart](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html)
 
+## Get secrets
 
+Use `elastic` with the following password to login to Kibana
+
+```
+kubectl get secret quickstart-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo
+```
 
