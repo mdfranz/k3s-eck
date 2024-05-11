@@ -2,8 +2,10 @@
 
 On Linux
 
+
+
 ```
-uvt-kvm create --memory 16384 eck release=jammy --bridge br0 --cores 4 --disk 40 --password ubuntu
+uvt-kvm create --memory 16384 --disk 40 --cpu 4 --password ubuntu k3sg3a release=noble
 ```
 
 # Install K33
