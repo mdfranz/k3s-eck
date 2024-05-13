@@ -2,10 +2,15 @@
 
 On Linux
 
-
-
 ```
 uvt-kvm create --memory 16384 --disk 40 --cpu 4 --password ubuntu k3sg3a release=noble
+```
+
+or
+
+```
+uvt-kvm create --memory 16384 asus-eck2 release=jammy --disk 40 --bridge br0 --cpu 8 --password ubuntu
+
 ```
 
 # Install K33
