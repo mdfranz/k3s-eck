@@ -9,14 +9,14 @@ uvt-kvm create --memory 16384 --disk 40 --cpu 4 --password ubuntu k3sg3a release
 or
 
 ```
-uvt-kvm create --memory 16384 asus-eck2 release=jammy --disk 40 --bridge br0 --cpu 8 --password ubuntu
+uvt-kvm create --memory 8192 eck1-hpg3 release=jammy --disk 40 --bridge br0 --cpu 4 --password ubuntu
 
 ```
 
 # Install K33
 
 ```
-curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" sh -s -
+curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="--disable=traefik" sh -s -
 ```
 
 Add `export KUBECONFIG=/etc/rancher/k3s/k3s.yaml` to your .bashrc
@@ -24,6 +24,18 @@ Add `export KUBECONFIG=/etc/rancher/k3s/k3s.yaml` to your .bashrc
 (If you don't you will get a plugin failed error)
 
 Download [k9s](https://k9scli.io/) from https://github.com/derailed/k9s/releases
+
+## Install Nginx Ingress Controller
+
+```
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm update
+kubectl create namespace nginx
+helm install ingress-nginx ingress-nginx/ingress-nginx --namespace nginx
+```
+
+
+
 
 ## Install Longhorn
 
