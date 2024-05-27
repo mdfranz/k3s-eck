@@ -5,8 +5,8 @@ metadata:
   namespace: longhorn-system
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: 'false'
-    kubernetes.io/ingress.class: "nginx"
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:

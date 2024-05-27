@@ -4,7 +4,7 @@ metadata:
   name: fleet-server-quickstart
   namespace: default
 spec:
-  version: 8.13.2
+  version: 8.13.4
   kibanaRef:
     name: kibana-quickstart
   elasticsearchRefs:
@@ -27,7 +27,7 @@ metadata:
   name: elastic-agent-quickstart
   namespace: default
 spec:
-  version: 8.13.2
+  version: 8.13.4
   kibanaRef:
     name: kibana-quickstart
   fleetServerRef:
@@ -51,7 +51,7 @@ metadata:
   name: kibana-quickstart
   namespace: default
 spec:
-  version: 8.13.2
+  version: 8.13.4
   count: 1
   elasticsearchRef:
     name: elasticsearch-quickstart
@@ -97,7 +97,7 @@ metadata:
   name: elasticsearch-quickstart
   namespace: default
 spec:
-  version: 8.13.2
+  version: 8.13.4
   nodeSets:
   - name: default
     count: 3
