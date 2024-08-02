@@ -13,6 +13,13 @@ uvt-kvm create --memory 8192 eck1-hpg3 release=jammy --disk 40 --bridge br0 --cp
 
 ```
 
+or 
+
+```
+multipass launch -m 16G -c8 -d 40G --name k3s-16gb noble
+```
+
+
 # Install K33
 
 ```
