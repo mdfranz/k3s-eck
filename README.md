@@ -41,9 +41,6 @@ kubectl create namespace nginx
 helm install ingress-nginx ingress-nginx/ingress-nginx --namespace nginx
 ```
 
-
-
-
 ## Install Longhorn
 
 Following [K3S: Storage](https://docs.k3s.io/storage) set up a local storage provider
@@ -66,6 +63,36 @@ longhorn-replica-manager      ClusterIP   None            <none>        <none>  
 ```
 
 And you'll connect to *longhorn-ui* (I use SSH port forwarding through Firefox so I can access cluster IPs)
+
+Or 
+
+## Annotate the UI to expose via Tailscale
+
+Install the [tailscale k8s operator](https://tailscale.com/learn/managing-access-to-kubernetes-with-tailscale#using-tailscales-kubernetes-operator)
+
+add `tailscale.com/expose: "true"` to the Service annotation
+
+```
+~$ kubectl get service longhorn-frontend -n longhorn-system -o yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"longhorn-ui","app.kubernetes.io/instance":"longhorn","app.kubernetes.io/name":"longhorn","app.kubernetes.io/version":"v1.8.0-dev"},"name":"longhorn-frontend","namespace":"longhorn-system"},"spec":{"ports":[{"name":"http","nodePort":null,"port":80,"targetPort":"http"}],"selector":{"app":"longhorn-ui"},"type":"ClusterIP"}}
+    tailscale.com/expose: "true"
+  creationTimestamp: "2024-08-17T23:01:08Z"
+  finalizers:
+  - tailscale.com/finalizer
+  labels:
+    app: longhorn-ui
+    app.kubernetes.io/instance: longhorn
+    app.kubernetes.io/name: longhorn
+    app.kubernetes.io/version: v1.8.0-dev
+  name: longhorn-frontend
+  namespace: longhorn-system
+```
+
 
 # Install ECK
 
