@@ -4,7 +4,7 @@ metadata:
   name: fleet-server-quickstart
   namespace: default
 spec:
-  version: 8.15.0
+  version: 8.15.5
   kibanaRef:
     name: kibana-quickstart
   elasticsearchRefs:
@@ -27,7 +27,7 @@ metadata:
   name: elastic-agent-quickstart
   namespace: default
 spec:
-  version: 8.15.0
+  version: 8.15.5
   kibanaRef:
     name: kibana-quickstart
   fleetServerRef:
@@ -51,7 +51,7 @@ metadata:
   name: kibana-quickstart
   namespace: default
 spec:
-  version: 8.15.0
+  version: 8.15.5
   count: 1
   elasticsearchRef:
     name: elasticsearch-quickstart
@@ -97,7 +97,16 @@ metadata:
   name: elasticsearch-quickstart
   namespace: default
 spec:
-  version: 8.15.0
+  version: 8.15.5
+  monitoring:
+    metrics:
+      elasticsearchRefs:
+      - name: elasticsearch-quickstart
+        namespace: default
+    logs:
+      elasticsearchRefs:
+      - name: elasticsearch-quickstart
+        namespace: default
   nodeSets:
   - name: default
     count: 2
@@ -156,3 +165,41 @@ roleRef:
   kind: ClusterRole
   name: elastic-agent
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: beat.k8s.elastic.co/v1beta1
+kind: Beat
+metadata:
+  name: beat-quickstart
+spec:
+  type: filebeat
+  version: 8.15.5
+  daemonSet:
+    podTemplate:
+      spec:
+        containers:
+        - name: filebeat
+  monitoring:
+    metrics:
+      elasticsearchRefs:
+      - name: elasticsearch-quickstart
+        namespace: default
+    logs:
+      elasticsearchRefs:
+      - name: elasticsearch-quickstart
+        namespace: default
+---
+apiVersion: logstash.k8s.elastic.co/v1alpha1
+kind: Logstash
+metadata:
+    name: logstash-quickstart
+spec:
+  version: 8.15.5
+  monitoring:
+    metrics:
+      elasticsearchRefs:
+      - name: elasticsearch-quickstart
+        namespace: default
+    logs:
+      elasticsearchRefs:
+      - name: elastisearch-quickstart
+        namespace: default
