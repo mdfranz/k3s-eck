@@ -4,7 +4,7 @@ metadata:
   name: fleet-server-quickstart
   namespace: default
 spec:
-  version: 8.15.5
+  version: 8.16.2
   kibanaRef:
     name: kibana-quickstart
   elasticsearchRefs:
@@ -27,7 +27,7 @@ metadata:
   name: elastic-agent-quickstart
   namespace: default
 spec:
-  version: 8.15.5
+  version: 8.16.2
   kibanaRef:
     name: kibana-quickstart
   fleetServerRef:
@@ -51,7 +51,7 @@ metadata:
   name: kibana-quickstart
   namespace: default
 spec:
-  version: 8.15.5
+  version: 8.16.2
   count: 1
   elasticsearchRef:
     name: elasticsearch-quickstart
@@ -97,7 +97,7 @@ metadata:
   name: elasticsearch-quickstart
   namespace: default
 spec:
-  version: 8.15.5
+  version: 8.16.2
   monitoring:
     metrics:
       elasticsearchRefs:
@@ -172,7 +172,7 @@ metadata:
   name: beat-quickstart
 spec:
   type: filebeat
-  version: 8.15.5
+  version: 8.16.2
   daemonSet:
     podTemplate:
       spec:
@@ -188,18 +188,12 @@ spec:
       - name: elasticsearch-quickstart
         namespace: default
 ---
-apiVersion: logstash.k8s.elastic.co/v1alpha1
-kind: Logstash
+apiVersion: v1
+kind: Secret
 metadata:
-    name: logstash-quickstart
-spec:
-  version: 8.15.5
-  monitoring:
-    metrics:
-      elasticsearchRefs:
-      - name: elasticsearch-quickstart
-        namespace: default
-    logs:
-      elasticsearchRefs:
-      - name: elastisearch-quickstart
-        namespace: default
+  name: eck-trial-license
+  namespace: elastic-system
+  labels:
+    license.k8s.elastic.co/type: enterprise_trial
+  annotations:
+    elastic.co/eula: accepted
